@@ -1,0 +1,78 @@
+// ใช้คำสั่งนี้เพื่อตรวจสอบเวอร์ชันของ Docker ที่ติดตั้งอยู่ในระบบของคุณ
+docker -v
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบว่า Docker สามารถทำงานได้อย่างถูกต้องหรือไม่ โดยการรันคอนเทนเนอร์ตัวอย่างที่ชื่อว่า "hello-world"
+docker run hello-world
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบสถานะของคอนเทนเนอร์ทั้งหมดที่กำลังทำงานอยู่ในระบบของคุณ
+docker ps -all
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบรายการของอิมเมจทั้งหมดที่มีอยู่ในระบบของคุณ
+docker images
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบการเชื่อมต่ออินเทอร์เน็ตภายในคอนเทนเนอร์ โดยการรันคอนเทนเนอร์ที่ใช้ภาพ "busybox" และทำการ ping ไปยัง google.com
+docker run busybox ping google.com
+
+// ใช้คำสั่งนี้เพื่อหยุดคอนเทนเนอร์ที่กำลังทำงานอยู่ โดยแทนที่ <container_id> ด้วย ID ของคอนเทนเนอร์ที่คุณต้องการหยุด
+docker stop <container_id> 
+
+// ใช้คำสั่งนี้เพื่อลบคอนเทนเนอร์ที่หยุดแล้ว โดยแทนที่ <container_id> ด้วย ID ของคอนเทนเนอร์ที่คุณต้องการลบ
+docker pull <image_name>
+
+// ใช้คำสั่งนี้เพื่อสร้างคอนเทนเนอร์ใหม่จากอิมเมจที่ระบุ โดยแทนที่ <image_name> ด้วยชื่อของอิมเมจที่คุณต้องการใช้`
+docker create <image_name>
+
+// ใช้คำสั่งนี้เพื่อเริ่มคอนเทนเนอร์ที่ถูกสร้างขึ้น โดยแทนที่ <container_id> ด้วย ID ของคอนเทนเนอร์ที่คุณต้องการเริ่ม
+docker start <container_id>
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบสถานะของคอนเทนเนอร์ที่กำลังทำงานอยู่ในระบบของคุณ
+docker ps
+
+// ใช้คำสั่งนี้เพื่อหยุดคอนเทนเนอร์ที่กำลังทำงานอยู่ โดยแทนที่ <container_id> ด้วย ID ของคอนเทนเนอร์ที่คุณต้องการหยุด
+docker rm <container_id>
+
+// ใช้คำสั่งนี้เพื่อลบข้อมูลที่ไม่จำเป็นทั้งหมดในระบบ Docker ของคุณ เช่น คอนเทนเนอร์ที่หยุดแล้ว อิมเมจที่ไม่ได้ใช้งาน และเครือข่ายที่ไม่ได้ใช้งาน โดยคำสั่งนี้จะช่วยเพิ่มพื้นที่ว่างในระบบของคุณ
+docker system prune 
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบการทำงานของคอนเทนเนอร์ที่ใช้ภาพ "nginx" โดยการรันคอนเทนเนอร์นั้นและตรวจสอบว่า nginx สามารถทำงานได้อย่างถูกต้องหรือไม่
+docker run nginx
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบการทำงานของคอนเทนเนอร์ที่ใช้ภาพ "nginx" โดยการรันคอนเทนเนอร์นั้นและตรวจสอบว่า nginx สามารถทำงานได้อย่างถูกต้องหรือไม่
+docker exec -it <container_id> sh
+
+// ใช้คำสั่งนี้เพื่อเข้าสู่เชลล์ของคอนเทนเนอร์ที่กำลังทำงานอยู่ โดยแทนที่ <container_id> ด้วย ID ของคอนเทนเนอร์ที่คุณต้องการเข้าสู่
+docker exec -it <container_id> bash
+
+cd /usr/share/nginx/html
+cat index.html
+
+// ใช้คำสั่งนี้เพื่อรันคอนเทนเนอร์ที่ใช้ภาพ "nginx" และทำการแมปพอร์ต 80 ของคอนเทนเนอร์ไปยังพอร์ต 9000 ของโฮสต์ของคุณ เพื่อให้คุณสามารถเข้าถึง nginx ผ่านทางเบราว์เซอร์ของคุณได้ที่ http://localhost:9000
+docker run -p 9000:80 nginx
+
+// ใช้คำสั่งนี้เพื่อรันคอนเทนเนอร์ที่ใช้ภาพ "nginx" ในโหมด detached (ทำงานในพื้นหลัง) และทำการแมปพอร์ต 80 ของคอนเทนเนอร์ไปยังพอร์ต 8000 ของโฮสต์ของคุณ เพื่อให้คุณสามารถเข้าถึง nginx ผ่านทางเบราว์เซอร์ของคุณได้ที่ http://localhost:8000
+docker run -d -p 8000:80 nginx
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบรายละเอียดของอิมเมจที่ระบุ โดยแทนที่ <image_name> ด้วยชื่อของอิมเมจที่คุณต้องการตรวจสอบ
+docker image inspect <image_name>
+
+// ใช้คำสั่งนี้เพื่อลบอิมเมจที่ระบุ โดยแทนที่ <image_name> ด้วยชื่อของอิมเมจที่คุณต้องการลบ
+docker image rm <image_name>
+
+docker pull wordpress
+docker pull mysql:5.7
+docker pull phpmyadmin/phpmyadmin
+
+
+Create network
+
+// ใช้คำสั่งนี้เพื่อสร้างเครือข่ายใหม่ที่ชื่อว่า "wordpress" ซึ่งจะใช้สำหรับเชื่อมต่อคอนเทนเนอร์ของ WordPress, MySQL และ phpMyAdmin เข้าด้วยกัน
+docker network create wordpress
+
+// ใช้คำสั่งนี้เพื่อตรวจสอบรายการของเครือข่ายทั้งหมดที่มีอยู่ในระบบของคุณ รวมถึงเครือข่ายที่คุณเพิ่งสร้างขึ้น
+docker network ls
+
+docker run --name mysql --network wordpress -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+docker run --name pma --network wordpress -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+docker run -d --name wordpress --network wordpress -p 888:80 -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress_db wordpress
+
+password wordpress = 1yS2a1OZ5YS3AeoL9f
